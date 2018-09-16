@@ -1,7 +1,10 @@
 import java.util.Comparator;
 
+import processing.core.PApplet;
+
 public class CompararTamaño implements Comparator<Elemento> {
 
+	
 	
 	
 	

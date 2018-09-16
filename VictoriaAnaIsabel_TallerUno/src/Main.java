@@ -15,18 +15,19 @@ public class Main extends PApplet {
 	}
 	public void setup() {
 		
-		logica= new Logica(this);
+		logica = new Logica(this);
 	}
 	
 	public void draw() {
-		
+		background(0);
+		logica.pintar();
 	}
-	public void keyPressed() {
-		
-		
+	public void keyPressed() {	
+		logica.teclado();
 	}
 	public void mouseReleased() {
-		
+		logica.mouse();
+	
 		
 	}
 }
