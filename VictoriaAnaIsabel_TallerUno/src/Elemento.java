@@ -7,12 +7,12 @@ public abstract class Elemento {
 	protected PVector pos;
 	protected float vel1;
 	protected float vel2;
-	
+	protected PApplet app;
 	
 	
 	
 	public Elemento(PApplet app) {
-		
+		this.app = app;
 	}
 	
 	public abstract void pintar(); 

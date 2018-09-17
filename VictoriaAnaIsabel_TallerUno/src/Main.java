@@ -5,7 +5,7 @@ public class Main extends PApplet {
 	Logica logica;
 
 	public static void main(String[] args) {
-	PApplet.main("main");
+	PApplet.main("Main");
 
 	}
 

@@ -1,24 +1,21 @@
-import processing.core.PApplet;
+import processing.core.*;
 
 public class Agua extends Elemento {
 
-
-public Agua(PApplet app) {
+	public Agua(PApplet app) {
 		super(app);
-		// TODO Auto-generated constructor stub
+
 	}
 
 @Override
 public void pintar() {
 	
-	
+ 
 }
 
-@Override
-public void actualizar() {
-	
-	
-}
+	@Override
+	public void actualizar() {
 
+	}
 
 }
