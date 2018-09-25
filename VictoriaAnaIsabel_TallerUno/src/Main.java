@@ -14,7 +14,7 @@ public class Main extends PApplet {
 		size(1200,700);
 	}
 	public void setup() {
-		
+		  smooth();
 		logica = new Logica(this);
 	}
 	

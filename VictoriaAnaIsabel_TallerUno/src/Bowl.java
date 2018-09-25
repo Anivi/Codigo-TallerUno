@@ -5,12 +5,14 @@ public class Bowl {
     private int contador;
 	PApplet app;
 	String elemento;
+	private int x1;
 	public Bowl(PApplet app, String e) {
 		
 		this.app =app;
 		elemento = e;
 	}
 	public void pintar(int x) {
+		x1=x;
 	if(elemento == "Fuego") {
 		app.fill(231,37,18);
 	}else if(elemento == "Aire") {
@@ -69,6 +71,12 @@ public class Bowl {
 	}
 	public void setTapa(boolean tapa) {
 		this.tapa = tapa;
+	}
+	public int getX1() {
+		return x1;
+	}
+	public void setX1(int x1) {
+		this.x1 = x1;
 	}
 	
 	

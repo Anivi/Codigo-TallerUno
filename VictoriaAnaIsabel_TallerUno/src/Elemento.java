@@ -11,7 +11,8 @@ public abstract class Elemento {
 	
 	
 	
-	public Elemento(PApplet app) {
+	
+	public Elemento(PApplet app, float x, float y) {
 		this.app = app;
 	}
 	
@@ -19,5 +20,7 @@ public abstract class Elemento {
 		
 	
     public abstract void actualizar();
-}
 
+    public abstract void pintar2();
+    
+}
