@@ -12,6 +12,7 @@ private int tam2=10;
 private int tam3=20;
 private int tam4=25;
 private boolean crecer=true;
+boolean esca = false;
 
 	public Tierra(PApplet app, float x, float y) {
 		super(app, x, y);
@@ -22,13 +23,17 @@ private boolean crecer=true;
         	piedras.add(new Piedra(app));
 			
 		}
+        if(pos.x == app.mouseX && pos.y == app.mouseY) {
+			esca = true;
+		}
 	}
 
 	@Override
 	public void pintar() {
+		app.noStroke();
 	app.pushMatrix();
 	app.rotate(angle);
-	app.fill(89,53,31);
+	app.fill(89,53,31,alfa);
 	app.beginShape();
 	app.vertex(pos.x,pos.y);
 	app.vertex((pos.x),(pos.y)+tam3);
@@ -71,12 +76,15 @@ private boolean crecer=true;
 			crecer=true;
 		}
 	}
+	 if(esca == true) {
+		  actualizar();
+	}
 	}
 	
 
 	@Override
 	public void actualizar() {
-		// TODO Auto-generated method stub
+		pos.x++;
 		
 	}
 

@@ -11,13 +11,16 @@ public class Aire extends Elemento {
 	int currentAngle = 0;
 	int s;
 	float f;
-	
+	boolean esca = false;
 
 
 	
 	public Aire(PApplet app, float x, float y) {
-		super(app, x, y);
+		super(app, x, y);		
 		pos = new PVector(x,y);
+		if(pos.x == app.mouseX && pos.y == app.mouseY) {
+			esca = true;
+		}
 		
 		
 	}
@@ -25,23 +28,28 @@ public class Aire extends Elemento {
 	@Override
 	public void pintar() {
 		
-		 app.fill(200);
+		 app.fill(200, alfa);
 		  app.noStroke();
 		  for (int i=0; i<num; i++) {
 		    pintarCirculo(i+1, 10-i*2);
 		  } 
 		  theta += app.TWO_PI/frames;
+		 //esca=esta cayendo 
+		  if(esca == true) {
+			  actualizar();
+		  }
 		  
 		}
 
 		void pintarCirculo(int speed, float sz) {
+			app.strokeWeight(1);
 		  app.pushMatrix(); 
 		  app.translate(pos.x, pos.y); 
 		  app.rotate(theta*speed); 
 		  if (speed == 2) {
 		    app.noStroke();
 		  } else {
-		    app.stroke(255);
+		    app.stroke(255,alfa);
 		  }
 		  for (int i=0; i<units; i++) {
 		    float x = app.cos(angle)*d; 
@@ -61,7 +69,8 @@ public class Aire extends Elemento {
 
 	@Override
 	public void actualizar() {
-		// TODO Auto-generated method stub
+		
+		pos.x++;
 		
 	}
 

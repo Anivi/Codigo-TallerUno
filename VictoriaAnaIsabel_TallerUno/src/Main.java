@@ -25,10 +25,13 @@ public class Main extends PApplet {
 	public void keyPressed() {	
 		logica.teclado();
 	}
+	
+	public void keyReleased() {
+		logica.soltar();
+	}
 	public void mouseReleased() {
 		logica.mouse();
-	
-		
+		logica.generador();	
 	}
 }
 

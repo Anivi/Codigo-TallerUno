@@ -8,12 +8,15 @@ public abstract class Elemento {
 	protected float vel1;
 	protected float vel2;
 	protected PApplet app;
+	protected int alfa;
 	
 	
 	
 	
+
 	public Elemento(PApplet app, float x, float y) {
 		this.app = app;
+		alfa = 255;
 	}
 	
 	public abstract void pintar(); 
@@ -22,5 +25,13 @@ public abstract class Elemento {
     public abstract void actualizar();
 
     public abstract void pintar2();
+
+	public int getAlfa() {
+		return alfa;
+	}
+
+	public void setAlfa(int alfa) {
+		this.alfa = alfa;
+	}
     
 }

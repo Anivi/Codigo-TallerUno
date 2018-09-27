@@ -1,9 +1,11 @@
 import java.util.*;
 
 import processing.core.PApplet;
+import processing.core.PVector;
 
 public class Logica {
-
+	LinkedList<Viento> vientos;
+	LinkedList<Lluvia> lluvias;
 	LinkedList<Elemento> elemento;
 	PApplet app;
 	Elemento temp;
@@ -24,8 +26,26 @@ public class Logica {
 	int cont2;
 	int cont3;
 	int cont4;
+	float radious;
+	LinkedList<Incendio> incendios;
+	float x, y;
+	boolean asd = false;
+	float P_RADIOUS = 7;
+	PVector pos, vel;
+	int contclick;
+	int contsclick;
+	boolean camcol = false;
+	boolean masno = false;
 
 	public Logica(PApplet app) {
+
+		radious = 0;
+		incendios = new LinkedList<Incendio>();
+		vientos = new LinkedList<Viento>();
+		lluvias = new LinkedList<Lluvia>();
+		for (int i = 0; i < 800; i++) {
+			lluvias.add(new Lluvia(app));
+		}
 		elemento = new LinkedList<Elemento>();
 		this.app = app;
 		bowl = new LinkedList<Bowl>();
@@ -126,28 +146,35 @@ public class Logica {
 				borrar4 = false;
 			}
 		}
-		for (int i = 0; i < elemento.size(); i++) {
-			if (efec2 == true) {
 
-				cont2++;
-				if (elemento.get(i) instanceof Aire) {
+		if (efec2 == true) {
+			vientos.add(new Viento(app));
 
-					elemento.get(i).pintar2();
-					System.out.println("yes");
-				}
+			float targetx = app.mouseX;
+			float targety = app.mouseY;
+
+			for (int i = vientos.size() - 1; i >= 0; i--) {
+				Viento pom = vientos.get(i);
+				pom.show();
+				pom.update();
+				pom.physics();
+				if (pom.alphaval == 0 && pom.gettingup == 0)
+					vientos.remove(i);
 			}
-			if (cont2 == 150) {
-				cont2 = 0;
-				efec2 = false;
-			}
+			cont2++;
+
 		}
+		if (cont2 == 150) {
+			cont2 = 0;
+			efec2 = false;
+		}
+
 		if (efec4 == true) {
-		cont4++;
+			cont4++;
 		}
 		for (int i = 0; i < elemento.size(); i++) {
 			if (efec4 == true) {
 
-				
 				if (elemento.get(i) instanceof Tierra) {
 
 					elemento.get(i).pintar2();
@@ -159,6 +186,82 @@ public class Logica {
 				efec4 = false;
 			}
 		}
+		if (efec3 == true) {
+			cont3++;
+
+			for (int j = 0; j < lluvias.size(); j++) {
+				Lluvia a = lluvias.get(j);
+				a.pintar();
+				a.caer();
+			}
+			if (cont3 == 250) {
+				cont3 = 0;
+				efec3 = false;
+			}
+		}
+		if (efec1 == true) {
+			cont1++;
+			if (app.keyPressed) {
+				if (radious < 200) {
+					radious += 2;
+				}
+				app.fill(255, 0, 0);
+				app.ellipse(x, y, radious * 2, radious * 2);
+			}
+			LinkedList<Incendio> nextIncendios = new LinkedList<Incendio>();
+			for (Incendio incendios : incendios) {
+				incendios.update();
+				incendios.display();
+				if (!incendios.isDead()) {
+					nextIncendios.add(incendios);
+				}
+			}
+			incendios = nextIncendios;
+		}
+		if (cont1 == 250) {
+			cont1 = 0;
+			efec1 = false;
+		}
+		if (contclick >= 2) {
+			contclick = 0;
+		}
+		if (contclick >= 1) {
+			contsclick++;
+			if (contsclick > 15) {
+				contsclick = 0;
+				contclick = 0;
+			}
+		}
+
+		for (int i = 0; i < elemento.size(); i++) {
+			if (elemento.get(i).pos.x > 1400) {
+				elemento.remove(i);
+			}
+		}
+		if (camcol == true) {
+			if (masno == true) {
+				System.out.println("-");
+				for (int i = 0; i < elemento.size(); i++) {
+					Elemento a = elemento.get(i);
+					if (a.getAlfa() <= 0) {
+						masno = true;
+					}
+					a.setAlfa(a.getAlfa() + 1);
+				}
+			}
+			if (masno == false) {
+				System.out.println("+");
+				for (int i = 0; i < elemento.size(); i++) {
+					Elemento a = elemento.get(i);
+
+					if (a.getAlfa() >= 255) {
+						masno = false;
+					}
+					a.setAlfa(a.getAlfa() - 1);
+				}
+			}
+		}
+
 	}
 
 	public void teclado() {
@@ -168,14 +271,21 @@ public class Logica {
 			if (o.isTapa() == false) {
 				if (app.key == 'f' && o.elemento == "Fuego") {
 					o.setTapa(true);
-
+					efec1 = true;
+					if (asd == false) {
+						x = app.random(app.width);
+						y = app.random(app.height);
+					}
+					asd = true;
 				}
 				if (app.key == 'v' && o.elemento == "Aire") {
 					o.setTapa(true);
 					efec2 = true;
 
 				}
+				
 				if (app.key == 'a' && o.elemento == "Agua") {
+					efec3 = true;
 					o.setTapa(true);
 
 				}
@@ -185,6 +295,9 @@ public class Logica {
 
 				}
 			}
+		}
+		if (app.key == 'r') {
+			camcol = true;
 		}
 	}
 
@@ -202,6 +315,7 @@ public class Logica {
 								elemento.add(new Fuego(app, bowl.get(i).getX1() - 20, 600 - 140));
 							}
 						}
+						camcol = false;
 						act1 = true;
 					} else {
 						borrar1 = true;
@@ -217,7 +331,7 @@ public class Logica {
 							} else if (j == 5) {
 								elemento.add(new Aire(app, bowl.get(i).getX1() - 5, 600 - 140));
 							}
-
+							camcol = false;
 							act2 = true;
 						}
 					} else {
@@ -234,6 +348,7 @@ public class Logica {
 								elemento.add(new Agua(app, bowl.get(i).getX1() - 3, 600 - 140));
 							}
 						}
+						camcol = false;
 						act3 = true;
 					} else {
 						borrar3 = true;
@@ -250,6 +365,7 @@ public class Logica {
 							}
 						}
 						act4 = true;
+						camcol = false;
 					} else {
 						borrar4 = true;
 					}
@@ -258,8 +374,43 @@ public class Logica {
 		}
 	}
 
-	public void generador() {
+	public void soltar() {
+		if (radious > P_RADIOUS) {
+			int num = (int) (app.sq(radious) * 0.06f);
+			for (int i = 0; i < num; i++) {
+				float ang = app.random(app.TWO_PI);
+				float r = app.random(radious - P_RADIOUS);
+				PVector pos = new PVector(x + r * app.cos(ang), y + r * app.sin(ang));
+				incendios.add(new Incendio(pos, app));
+			}
+		}
+		radious = 0;
+		asd = false;
+	}
 
+	public void generador() {
+		int re = (int) app.random(1, 5);
+		if (app.mouseButton == app.RIGHT) {
+
+			if (contclick == 1) {
+				switch (re) {
+				case 1:
+					elemento.add(new Fuego(app, app.mouseX, app.mouseY));
+					break;
+				case 2:
+					elemento.add(new Agua(app, app.mouseX, app.mouseY));
+					break;
+				case 3:
+					elemento.add(new Aire(app, app.mouseX, app.mouseY));
+					break;
+				case 4:
+					elemento.add(new Tierra(app, app.mouseX, app.mouseY));
+					break;
+				}
+
+			}
+			contclick++;
+		}
 	}
 
 	public void ordenar() {

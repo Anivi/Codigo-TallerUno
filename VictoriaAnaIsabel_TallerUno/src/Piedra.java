@@ -10,6 +10,8 @@ public class Piedra {
 	PApplet app;
 	PVector pos;
 	PVector vel;
+	boolean esca = false;
+	
 	public Piedra(PApplet app) {
 		this.app=app;
 		r= (int) app.random(1,3);
@@ -29,6 +31,7 @@ public class Piedra {
 	}
 
 	public void pintar(){
+		app.noStroke();
 		app.fill(89,53,31);
 		app.beginShape();
 		app.vertex(pos.x,pos.y);
@@ -54,7 +57,9 @@ public class Piedra {
 				vel = new PVector(5,(int)app.random(1,5));
 			}
 			if(r==2) {
-				vel = new PVector(-5,(int)app.random(1,5));
+				vel = new PVector(-5,(int)app.random(1,5)
+						
+						);
 			}
 			}
     }

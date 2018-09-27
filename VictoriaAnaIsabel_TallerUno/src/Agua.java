@@ -9,11 +9,15 @@ public class Agua extends Elemento {
 	  float xv = -3+app.random(1,5);
 	  float yv = -app.random(3);
 	  float maxYV = 1;
+	  boolean esca = false;	  
 	public Agua(PApplet app, float x, float y) {
 		super(app, x, y);
 		pos = new PVector(x,y);
 		tam = 40;
 		vel1= 0.5f;
+		if(pos.x == app.mouseX && pos.y == app.mouseY) {
+			esca = true;
+		}
 		
 		  
 	}
@@ -23,9 +27,9 @@ public void pintar() {
 	  app.ellipseMode(app.CENTER);
 
       app.noFill();
-      app.stroke(255);
+      app.stroke(255, alfa);
       app.strokeWeight(2);
-      app.fill(8,224,215);
+      app.fill(8,224,215, alfa);
       app.ellipse(pos.x,pos.y,tam,tam);
       app.noFill();
       app.strokeWeight(1.5f);
@@ -38,11 +42,14 @@ public void pintar() {
       if(app.frameCount% 15 ==0) {
     	  vel1*=-1;
       }
+ 	 if(esca == true) {
+		  actualizar();
+ 	 }
 }
 
 	@Override
 	public void actualizar() {
-
+    pos.x++;
 	}
 
 	@Override
