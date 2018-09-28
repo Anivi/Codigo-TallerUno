@@ -46,4 +46,9 @@ public class Fuego extends Elemento {
 		
 	}
 
+	public void mover(float x, float y) {
+		pos.x=x;
+		pos.y=y;
+		
+	}
 }

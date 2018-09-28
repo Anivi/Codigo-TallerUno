@@ -97,6 +97,11 @@ boolean esca = false;
 		}
 		
 	}
+	public void mover(float x, float y) {
+		pos.x=x;
+		pos.y=y;
+		
+	}
 	
 	
 	

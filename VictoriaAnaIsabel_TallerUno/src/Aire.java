@@ -97,6 +97,13 @@ public class Aire extends Elemento {
 //		}
 	}
 
+	@Override
+	public void mover(float x, float y) {
+		pos.x=x;
+		pos.y=y;
+		
+	}
+
 		
 		
 		

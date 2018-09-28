@@ -4,6 +4,8 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 public class Logica {
+    Elemento giran;
+	
 	LinkedList<Viento> vientos;
 	LinkedList<Lluvia> lluvias;
 	LinkedList<Elemento> elemento;
@@ -36,9 +38,10 @@ public class Logica {
 	int contsclick;
 	boolean camcol = false;
 	boolean masno = false;
+	boolean ruedan = false;
 
 	public Logica(PApplet app) {
-
+        giran = new Aire(app, app.width/2, app.height/2);
 		radious = 0;
 		incendios = new LinkedList<Incendio>();
 		vientos = new LinkedList<Viento>();
@@ -57,6 +60,8 @@ public class Logica {
 	}
 
 	public void pintar() {
+		
+		giran.organizar();
 
 		for (int i = 0; i < bowl.size(); i++) {
 			bowl.get(i).pintar(240 * (i + 1));
@@ -265,7 +270,34 @@ public class Logica {
 	}
 
 	public void teclado() {
-
+if(ruedan==false) {
+		if(app.key == 'o') {
+			LinkedList<Elemento>ele = giran.getElemento();
+			ele.add(new Fuego(app,giran.getX(), giran.getY()));	
+			ele.add(new Tierra(app,giran.getX(), giran.getY()));	
+			ele.add(new Agua(app,giran.getX(), giran.getY()));	
+			ele.add(new Aire(app,giran.getX(), giran.getY()));	
+			ele.add(new Fuego(app,giran.getX(), giran.getY()));	
+			ele.add(new Tierra(app,giran.getX(), giran.getY()));	
+			ele.add(new Agua(app,giran.getX(), giran.getY()));	
+			ele.add(new Aire(app,giran.getX(), giran.getY()));
+			ele.add(new Fuego(app,giran.getX(), giran.getY()));	
+			ele.add(new Tierra(app,giran.getX(), giran.getY()));	
+			ele.add(new Agua(app,giran.getX(), giran.getY()));	
+			ele.add(new Aire(app,giran.getX(), giran.getY()));
+			
+			ruedan=true;
+		}
+}else {
+			if(app.key == 'o') {
+				System.out.println("jejejeje");
+				LinkedList<Elemento>ele = giran.getElemento();
+		ele.removeAll(ele);
+		ruedan = false;
+			}
+		
+		}
+			
 		for (int i = 0; i < bowl.size(); i++) {
 			Bowl o = bowl.get(i);
 			if (o.isTapa() == false) {
@@ -278,6 +310,7 @@ public class Logica {
 					}
 					asd = true;
 				}
+				
 				if (app.key == 'v' && o.elemento == "Aire") {
 					o.setTapa(true);
 					efec2 = true;

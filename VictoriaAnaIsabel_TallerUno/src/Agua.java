@@ -58,4 +58,9 @@ public void pintar() {
 		
 	}
 
+	public void mover(float x, float y) {
+		pos.x=x;
+		pos.y=y;
+		
+	}
 }
