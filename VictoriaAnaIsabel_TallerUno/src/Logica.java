@@ -5,42 +5,45 @@ import processing.core.PVector;
 
 public class Logica {
     Elemento giran;
+	private String [] lineas, palabras;
+	private LinkedList<String>guardarTexto;
 	
-	LinkedList<Viento> vientos;
-	LinkedList<Lluvia> lluvias;
-	LinkedList<Elemento> elemento;
-	PApplet app;
-	Elemento temp;
-	LinkedList<Bowl> bowl;
-	boolean act1 = false;
-	boolean act2;
-	boolean act3;
-	boolean act4;
-	boolean borrar1 = false;
-	boolean borrar2 = false;
-	boolean borrar3 = false;
-	boolean borrar4 = false;
-	boolean efec1 = false;
-	boolean efec2 = false;
-	boolean efec3 = false;
-	boolean efec4 = false;
-	int cont1;
-	int cont2;
-	int cont3;
-	int cont4;
-	float radious;
-	LinkedList<Incendio> incendios;
-	float x, y;
-	boolean asd = false;
-	float P_RADIOUS = 7;
-	PVector pos, vel;
-	int contclick;
-	int contsclick;
-	boolean camcol = false;
-	boolean masno = false;
-	boolean ruedan = false;
+	private LinkedList<Viento> vientos;
+	private LinkedList<Lluvia> lluvias;
+	private LinkedList<Elemento> elemento;
+	private PApplet app;
+	private Elemento temp;
+	private LinkedList<Bowl> bowl;
+	private boolean act1 = false;
+	private boolean act2;
+	private boolean act3;
+	private boolean act4;
+	private boolean borrar1 = false;
+	private boolean borrar2 = false;
+	private boolean borrar3 = false;
+	private boolean borrar4 = false;
+	private boolean efec1 = false;
+	private boolean efec2 = false;
+	private boolean efec3 = false;
+	private boolean efec4 = false;
+	private int cont1;
+	private int cont2;
+	private int cont3;
+	private int cont4;
+	private float radious;
+	private LinkedList<Incendio> incendios;
+	private float x, y;
+	private boolean asd = false;
+	private float P_RADIOUS = 7;
+	private PVector pos, vel;
+	private int contclick;
+	private int contsclick;
+	private boolean camcol = false;
+	private boolean masno = false;
+	private boolean ruedan = false;
 
 	public Logica(PApplet app) {
+		
         giran = new Aire(app, app.width/2, app.height/2);
 		radious = 0;
 		incendios = new LinkedList<Incendio>();
@@ -53,10 +56,12 @@ public class Logica {
 		this.app = app;
 		bowl = new LinkedList<Bowl>();
 		bowl.add(new Bowl(app, "Fuego"));
+
 		bowl.add(new Bowl(app, "Aire"));
 		bowl.add(new Bowl(app, "Agua"));
 		bowl.add(new Bowl(app, "Tierra"));
-
+		cargarTXT();
+		guardarTexto();
 	}
 
 	public void pintar() {
@@ -290,6 +295,15 @@ if(ruedan==false) {
 		}
 }else {
 			if(app.key == 'o') {
+				for (int j = 0; j < guardarTexto.size(); j++) {
+					if(guardarTexto.get(j).compareTo("compañera")== 0) {
+						guardarTexto.set(j, "CoMpAñErA");
+						System.out.println(guardarTexto.get(j));
+					} else if (guardarTexto.get(j).compareTo("CoMpAñErA")== 0) {
+						guardarTexto.set(j, "compañera");
+						
+					}
+				}
 				System.out.println("jejejeje");
 				LinkedList<Elemento>ele = giran.getElemento();
 		ele.removeAll(ele);
@@ -302,8 +316,18 @@ if(ruedan==false) {
 			Bowl o = bowl.get(i);
 			if (o.isTapa() == false) {
 				if (app.key == 'f' && o.elemento == "Fuego") {
+					for (int j = 0; j < guardarTexto.size(); j++) {
+						if(guardarTexto.get(j).compareTo("fuego")== 0) {
+							guardarTexto.set(j, "FUEGO");
+							System.out.println(guardarTexto.get(j));
+						} else if (guardarTexto.get(j).compareTo("FUEGO")== 0) {
+							guardarTexto.set(j, "fuego");
+							
+						}
+					}
 					o.setTapa(true);
 					efec1 = true;
+			guardarTexto();
 					if (asd == false) {
 						x = app.random(app.width);
 						y = app.random(app.height);
@@ -312,17 +336,45 @@ if(ruedan==false) {
 				}
 				
 				if (app.key == 'v' && o.elemento == "Aire") {
+					for (int j = 0; j < guardarTexto.size(); j++) {
+						if(guardarTexto.get(j).compareTo("aire")== 0) {
+							guardarTexto.set(j, "a_i_r_e");
+							System.out.println(guardarTexto.get(j));
+						} else if (guardarTexto.get(j).compareTo("a_i_r_e")== 0) {
+							guardarTexto.set(j, "aire");
+						
+						}
+					}
 					o.setTapa(true);
 					efec2 = true;
+					guardarTexto();
 
 				}
 				
 				if (app.key == 'a' && o.elemento == "Agua") {
+					for (int j = 0; j < guardarTexto.size(); j++) {
+						if(guardarTexto.get(j).compareTo("agua")== 0) {
+							guardarTexto.set(j, "@gu@");
+							System.out.println(guardarTexto.get(j));
+						} else if (guardarTexto.get(j).compareTo("@gu@")== 0) {
+							guardarTexto.set(j, "agua");
+						
+						}
+					}
 					efec3 = true;
 					o.setTapa(true);
 
 				}
 				if (app.key == 't' && o.elemento == "Tierra") {
+					for (int j = 0; j < guardarTexto.size(); j++) {
+						if(guardarTexto.get(j).compareTo("tierra")== 0) {
+							guardarTexto.set(j, "T13RR4");
+							System.out.println(guardarTexto.get(j));
+						} else if (guardarTexto.get(j).compareTo("T13RR4")== 0) {
+							guardarTexto.set(j, "tierra");
+						
+						}
+					}
 					efec4 = true;
 					o.setTapa(true);
 
@@ -330,6 +382,16 @@ if(ruedan==false) {
 			}
 		}
 		if (app.key == 'r') {
+			for (int j = 0; j < guardarTexto.size(); j++) {
+				if(guardarTexto.get(j).compareTo("serena")== 0) {
+					guardarTexto.set(j, "S_E_R_E_N_A");
+					System.out.println(guardarTexto.get(j));
+				} else if (guardarTexto.get(j).compareTo("S_E_R_E_N_A")== 0) {
+					guardarTexto.set(j, "serena");
+				
+				}
+			}
+			
 			camcol = true;
 		}
 	}
@@ -338,6 +400,15 @@ if(ruedan==false) {
 		for (int i = 0; i < bowl.size(); i++) {
 			if (app.dist(bowl.get(i).getX1(), 600, app.mouseX, app.mouseY) < 90) {
 				if (bowl.get(i).elemento == "Fuego") {
+					for (int j = 0; j < guardarTexto.size(); j++) {
+						if(guardarTexto.get(j).compareTo("iceberg")== 0) {
+							guardarTexto.set(j, "i-c-e-b-e-r-g");
+							System.out.println(guardarTexto.get(j));
+						} else if (guardarTexto.get(j).compareTo("i-c-e-b-e-r-g")== 0) {
+							guardarTexto.set(j, "iceberg");
+						
+						}
+					}
 					if (act1 == false) {
 						for (int j = 0; j < 6; j++) {
 							if (j < 3) {
@@ -426,6 +497,15 @@ if(ruedan==false) {
 		if (app.mouseButton == app.RIGHT) {
 
 			if (contclick == 1) {
+				for (int j = 0; j < guardarTexto.size(); j++) {
+					if(guardarTexto.get(j).compareTo("libertad")== 0) {
+						guardarTexto.set(j, "l.i.b.e.r.t.a.d");
+						System.out.println(guardarTexto.get(j));
+					} else if (guardarTexto.get(j).compareTo("l.i.b.e.r.t.a.d")== 0) {
+						guardarTexto.set(j, "libertad");
+					
+					}
+				}
 				switch (re) {
 				case 1:
 					elemento.add(new Fuego(app, app.mouseX, app.mouseY));
@@ -449,4 +529,31 @@ if(ruedan==false) {
 	public void ordenar() {
 
 	}
-}
+	public void cargarTXT() {
+		lineas = app.loadStrings("texto.txt");
+		
+		//separa palabras en espacios
+		for (int i = 0; i < lineas.length; i++) {
+			palabras = PApplet.split(lineas[0], ' ');
+		}
+		//guardar
+		guardarTexto = new LinkedList();
+		for (int i = 0; i < palabras.length && palabras != null ; i++) {
+			String temp = palabras[i];
+			guardarTexto.add(new String(temp));
+		}
+		
+	
+	}
+    public void guardarTexto() {
+    	String[] temp = new String[155];
+    	
+    	for (int i = 0; i < guardarTexto.size(); i++) {
+			temp[i] = guardarTexto.get(i);
+		}
+    	
+  	app.saveStrings("textoMod.txt", temp);
+    	
+		}
+    }
+
